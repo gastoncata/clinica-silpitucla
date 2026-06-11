@@ -13,9 +13,3 @@ services:
         value: https://mscarqjmccggkcmaxnfq.supabase.co
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false # se carga a mano en el dashboard de Render (es secreta)
-      - key: WHATSAPP_VERIFY_TOKEN
-        value: clinica-silpitucla-verify
-      - key: WHATSAPP_TOKEN
-        sync: false
-      - key: WHATSAPP_PHONE_NUMBER_ID
-        sync: false
