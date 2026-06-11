@@ -1,0 +1,17 @@
+{
+  "name": "clinica-silpitucla",
+  "version": "1.0.0",
+  "description": "Web + panel + bot de WhatsApp - Lic. Camila Silpitucla",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "dev": "node --env-file-if-exists=.env --watch server/index.js"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
+    "compression": "^1.7.4",
+    "express": "^4.21.0"
+  }
+}

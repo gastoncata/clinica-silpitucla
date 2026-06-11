@@ -1,0 +1,16 @@
+node_modules/
+.env
+.DS_Store
+
+# Archivos de desarrollo / herramientas de Claude Code
+.agents/
+.claude/
+skills-lock.json
+
+# Carpeta de test creada durante el desarrollo
+img/
+index.html
+
+# Imágenes temporales excluidas previamente
+public/assets/img0.png
+public/assets/img2.jpg
