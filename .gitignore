@@ -7,9 +7,9 @@ node_modules/
 .claude/
 skills-lock.json
 
-# Carpeta de test creada durante el desarrollo
+# Carpeta de test creada durante el desarrollo (raíz)
 img/
-index.html
+/index.html
 
 # Imágenes temporales excluidas previamente
 public/assets/img0.png

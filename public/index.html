@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lic. Camila Silpitucla · Kinesiología y Fisioterapia · Plottier, Neuquén</title>
+<meta name="description" content="Kinesiología y fisioterapia en Plottier, Neuquén. Neuromodulación, terapia manual, recuperación de lesiones y atención a domicilio. Sacá tu turno por WhatsApp.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/assets/logo.png">
+
+<style>
+  :root{
+    --brand:#3170D7; --brand-strong:#2459BC;
+    --navy:#14294F; --navy-deep:#0D1B36;
+    --slate:#495C7C; --sky:#C4D8EA; --sky-soft:#E5EEF8;
+    --bg:#F2F6FB; --bg-2:#E7EFF8; --card:#FFFFFF;
+    --ink:#13213B; --muted:#566379; --line:rgba(20,41,79,.12);
+    --wa:#25D366;
+    --radius:18px; --maxw:1140px;
+    --display:"Lexend", system-ui, sans-serif;
+    --body:"Source Sans 3", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.08;letter-spacing:-.02em}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(242,246,251,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:1.02rem;color:var(--navy);letter-spacing:-.01em}
+  .brand-logo{width:38px;height:38px;border-radius:50%;flex:0 0 auto}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-size:.92rem;color:var(--muted);font-weight:500;padding:6px 0;border-bottom:2px solid transparent;transition:color .2s, border-color .2s}
+  .nav-links a:hover{color:var(--navy)}
+  .nav-links a.active{color:var(--brand);border-bottom-color:var(--brand)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.94rem;padding:11px 20px;border-radius:999px;border:0;cursor:pointer;transition:transform .15s ease, box-shadow .2s ease, background .2s}
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:0 8px 22px -8px rgba(49,112,215,.7)}
+  .btn-primary:hover{background:var(--brand-strong);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--navy);border:1px solid var(--line)}
+  .btn-ghost:hover{background:var(--bg-2)}
+  a:focus-visible,.btn:focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:6px}
+
+  .hero{position:relative;padding:88px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);background:var(--sky-soft);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+  .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--brand)}
+  .hero h1{font-size:clamp(2.5rem,5.4vw,4.1rem);color:var(--navy);margin-bottom:20px;font-weight:800}
+  .hero h1 em{font-style:normal;color:var(--brand)}
+  .hero p.lead{font-size:1.12rem;color:var(--muted);max-width:37ch;margin-bottom:32px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-meta{display:flex;gap:28px;margin-top:40px;flex-wrap:wrap}
+  .hero-meta .m{display:flex;flex-direction:column}
+  .hero-meta .m b{font-family:var(--display);font-weight:700;font-size:1.16rem;color:var(--navy);line-height:1.14}
+  .hero-meta .m span{font-size:.82rem;color:var(--muted);margin-top:5px}
+
+  .hero-art{position:relative;aspect-ratio:1/1;border-radius:24px;background:linear-gradient(160deg,var(--navy),var(--navy-deep));overflow:hidden;display:grid;place-items:center}
+  .hero-art svg{width:78%;height:78%;position:relative}
+  .arc-track{fill:none;stroke:rgba(196,216,234,.35);stroke-width:2;stroke-dasharray:4 7}
+  .arc-move{fill:none;stroke:var(--sky);stroke-width:5;stroke-linecap:round;stroke-dasharray:540;stroke-dashoffset:540;animation:trace 3.4s ease-in-out infinite alternate}
+  .joint{fill:#fff}.joint-pivot{fill:var(--brand)}
+  .limb{stroke:#fff;stroke-width:5;stroke-linecap:round;transform-origin:128px 200px;animation:swing 3.4s ease-in-out infinite alternate}
+  @keyframes trace{to{stroke-dashoffset:0}}
+  @keyframes swing{from{transform:rotate(0deg)}to{transform:rotate(-72deg)}}
+  .art-tag{position:absolute;bottom:18px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center;color:rgba(242,246,251,.92);font-size:.8rem}
+  .art-tag .chip{background:rgba(196,216,234,.16);padding:6px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+
+  section{padding:92px 0}
+  .sec-head{max-width:60ch;margin-bottom:48px}
+  .sec-head .tag{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);display:block;margin-bottom:12px}
+  .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.7rem);color:var(--navy);font-weight:700}
+  .sec-head p{color:var(--muted);margin-top:14px;font-size:1.05rem}
+
+  .services{background:var(--navy)}
+  .services .sec-head h2{color:#fff}
+  .services .sec-head .tag{color:var(--sky)}
+  .services .sec-head p{color:rgba(242,246,251,.74)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:rgba(242,246,251,.06);border:1px solid rgba(196,216,234,.16);border-radius:var(--radius);padding:28px 24px;transition:transform .2s ease, background .2s ease}
+  .card:hover{transform:translateY(-4px);background:rgba(242,246,251,.1)}
+  .card .ic{width:46px;height:46px;border-radius:12px;background:rgba(49,112,215,.22);display:grid;place-items:center;margin-bottom:18px;color:var(--sky)}
+  .card h3{font-size:1.15rem;color:#fff;margin-bottom:8px;font-weight:600}
+  .card p{font-size:.95rem;color:rgba(242,246,251,.74)}
+
+  .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+  .about-photo{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);aspect-ratio:4/5;box-shadow:0 24px 50px -28px rgba(20,41,79,.45)}
+  .about-photo-img{width:100%;height:100%;object-fit:cover;object-position:top center}
+  .about-photo .mat{position:absolute;bottom:16px;left:16px;background:#fff;color:var(--navy);font-family:var(--display);font-weight:700;font-size:.85rem;padding:8px 14px;border-radius:999px;box-shadow:0 4px 14px -4px rgba(20,41,79,.4)}
+  .about-text h2{font-size:clamp(1.9rem,3.6vw,2.7rem);color:var(--navy);margin-bottom:18px;font-weight:700}
+  .about-text .tag{color:var(--brand);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:12px}
+  .about-text p{color:var(--muted);margin-bottom:16px}
+  .about-text .sign{font-family:var(--display);font-weight:700;color:var(--navy);font-size:1.1rem;margin-top:8px}
+
+  .process{background:var(--bg-2)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .step{position:relative;padding-top:18px}
+  .step .num{font-family:var(--display);font-weight:800;font-size:2.4rem;color:var(--brand);line-height:1}
+  .step h3{font-size:1.1rem;color:var(--navy);margin:12px 0 8px;font-weight:600}
+  .step p{font-size:.94rem;color:var(--muted)}
+  .step::before{content:"";position:absolute;top:0;left:0;width:46px;height:3px;background:var(--brand);border-radius:2px}
+
+  .booking-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:stretch}
+  .booking-card{background:var(--navy);color:#fff;border-radius:24px;padding:44px 40px;display:flex;flex-direction:column;justify-content:center}
+  .booking-card h2{font-size:clamp(1.8rem,3.4vw,2.5rem);color:#fff;margin-bottom:14px;font-weight:700}
+  .booking-card p{color:rgba(242,246,251,.8);margin-bottom:26px;max-width:38ch}
+  .booking-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .booking-card .btn{font-size:1rem;padding:14px 24px}
+  .btn-on-navy{background:var(--brand);color:#fff}
+  .btn-on-navy:hover{background:#3f7ee2;transform:translateY(-1px)}
+  .btn-outline{background:transparent;color:#fff;border:1px solid rgba(196,216,234,.34)}
+  .btn-outline:hover{background:rgba(196,216,234,.1)}
+  .info-list{display:flex;flex-direction:column}
+  .info-row{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+  .info-row:last-child{border-bottom:0}
+  .info-row .k{font-family:var(--display);font-weight:700;color:var(--navy);min-width:120px}
+  .info-row .v{color:var(--muted)}
+  .info-row .v a{color:var(--brand);font-weight:600}
+
+  footer{background:var(--navy-deep);color:rgba(242,246,251,.7);padding:54px 0 30px}
+  .foot-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap;padding-bottom:30px;border-bottom:1px solid rgba(196,216,234,.14)}
+  .foot-brand{display:flex;align-items:center;gap:12px;color:#fff;font-family:var(--display);font-weight:800;font-size:1.05rem}
+  .foot-brand img{width:44px;height:44px;border-radius:50%}
+  .socials{display:flex;gap:12px}
+  .socials a{width:42px;height:42px;border-radius:12px;background:rgba(196,216,234,.1);display:grid;place-items:center;color:#fff;transition:background .2s, transform .2s}
+  .socials a:hover{background:var(--brand);transform:translateY(-2px)}
+  .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;font-size:.84rem}
+  .foot-bottom a{color:var(--sky)}
+
+  @media (max-width:920px){
+    .hero-grid,.about-grid,.booking-grid{grid-template-columns:1fr}
+    .cards,.steps{grid-template-columns:repeat(2,1fr)}
+    .hero-art{max-width:420px;margin:0 auto}
+    .about-photo{max-width:360px}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none}
+    .nav-cta .btn span.long{display:none}
+    .cards,.steps{grid-template-columns:1fr}
+    section{padding:64px 0}.hero{padding:56px 0 48px}
+    .booking-card{padding:34px 26px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .arc-move{animation:none;stroke-dashoffset:0}
+    .limb{animation:none;transform:rotate(-36deg)}
+    html{scroll-behavior:auto}*{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#inicio" class="brand"><img class="brand-logo" src="/assets/logo.png" alt="" width="38" height="38">Lic. Camila Silpitucla</a>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#sobre">Sobre mí</a>
+      <a href="#proceso">Cómo trabajo</a>
+      <a href="#turnos">Turnos</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-primary" data-open-chat><span class="long">Pedir turno</span><span aria-hidden="true">→</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="pulse"></span> Kinesiología y fisioterapia · Plottier, Neuquén</span>
+      <h1>Volvé a moverte <em>sin dolor</em> y con seguridad.</h1>
+      <p class="lead">Acompaño a cada persona en su proceso de recuperación, con herramientas simples y efectivas para que te sientas mejor en tu día a día.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" data-open-chat>💬 Sacá tu turno ahora</button>
+        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+      </div>
+      <div class="hero-meta">
+        <div class="m"><b>Lic. en Kinesiología<br>y Fisioterapia</b><span>matrícula habilitante</span></div>
+        <div class="m"><b>Especialización<br>en Medicina Ortopédica</b><span>ETGOM · en curso</span></div>
+        <div class="m"><b>Plottier<br>Neuquén</b><span>consultorio y a domicilio</span></div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 256 256" role="img">
+        <path class="arc-track" d="M128 200 m -120 0 a 120 120 0 0 1 240 0" />
+        <path class="arc-move"  d="M128 200 m -120 0 a 120 120 0 0 1 240 0" />
+        <line class="limb" x1="128" y1="200" x2="128" y2="92" />
+        <circle class="joint" cx="128" cy="92" r="9" />
+        <circle class="joint-pivot" cx="128" cy="200" r="11" />
+      </svg>
+      <div class="art-tag"><span class="chip">Rango de movimiento</span><span class="chip">Recuperación guiada</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Lo que trato</span>
+      <h2>Tratamientos para que vuelvas a moverte mejor</h2>
+      <p>Cada plan arranca con una evaluación y se ajusta a tu objetivo: sacarte un dolor, recuperarte de una lesión o moverte con más libertad.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l2 6 4-12 2 6h2M19 12h2"/></svg></div><h3>Neuromodulación</h3><p>Estimulación del sistema nervioso para liberar contracturas y cortar el ciclo del dolor.</p></article>
+      <article class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11V6a2 2 0 1 1 4 0v5M13 7a2 2 0 1 1 4 0v6a6 6 0 0 1-6 6 5 5 0 0 1-5-5v-3l-2 1"/></svg></div><h3>Terapia manual y manipulación</h3><p>Técnicas manuales para dolor lumbar, cervical y articular, con un abordaje preciso.</p></article>
+      <article class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div><h3>Recuperación de lesiones</h3><p>Vuelta segura al movimiento y al deporte, paso a paso y a tu ritmo.</p></article>
+      <article class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M5 7l7-5 7 5M5 17l7 5 7-5"/></svg></div><h3>Movilidad y flexibilidad</h3><p>Trabajo de la cadena posterior para ganar libertad de movimiento y mejor postura.</p></article>
+      <article class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v6m0 0-3 5m3-5 3 5M7 10l5 1 5-1"/></svg></div><h3>Dolor lumbar y cervical</h3><p>Abordaje de contracturas, cervicalgia y dolor de espalda que te limitan el día a día.</p></article>
+      <article class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9M12 7v5l3 3"/></svg></div><h3>Atención a domicilio</h3><p>Si no podés trasladarte, voy a tu casa con todo lo necesario para tu rehabilitación.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="wrap about-grid">
+    <div class="about-photo">
+      <img class="about-photo-img" src="/assets/camila.jpg" alt="Lic. Camila Silpitucla" loading="lazy">
+      <span class="mat">Lic. UNC · ETGOM en curso</span>
+    </div>
+    <div class="about-text">
+      <span class="tag">Sobre mí</span>
+      <h2>Hola, soy Camila Silpitucla</h2>
+      <p>Soy Licenciada en Kinesiología y Fisioterapia por la Universidad Nacional de Córdoba, y curso la Especialización en Medicina Ortopédica (ETGOM). Creé este espacio para acompañarte en el cuidado de tu salud y ayudarte a mejorar tu calidad de vida a través del movimiento.</p>
+      <p>Mi objetivo es brindarte herramientas simples y efectivas para que te sientas mejor en tu día a día. Acompaño a cada persona en su proceso de recuperación para que vuelva a moverse sin dolor y con seguridad.</p>
+      <p class="sign">— Lic. Camila Silpitucla</p>
+    </div>
+  </div>
+</section>
+
+<section id="proceso" class="process">
+  <div class="wrap">
+    <div class="sec-head"><span class="tag">Cómo trabajo</span><h2>Un recorrido claro, de la primera sesión al alta</h2></div>
+    <div class="steps">
+      <div class="step"><div class="num">01</div><h3>Evaluación</h3><p>Escucho tu motivo de consulta y evalúo a fondo para entender el origen del problema.</p></div>
+      <div class="step"><div class="num">02</div><h3>Plan personalizado</h3><p>Diseñamos juntos un plan con objetivos realistas y plazos claros.</p></div>
+      <div class="step"><div class="num">03</div><h3>Tratamiento</h3><p>Terapia manual, neuromodulación y ejercicio, ajustando según tu evolución.</p></div>
+      <div class="step"><div class="num">04</div><h3>Seguimiento</h3><p>Pautas para sostener los resultados y evitar recaídas después del alta.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="turnos">
+  <div class="wrap booking-grid">
+    <div class="booking-card">
+      <h2>Sacá tu turno</h2>
+      <p>Mi asistente virtual te toma los datos en menos de un minuto, a cualquier hora. También podés escribirme por Instagram.</p>
+      <div class="booking-actions">
+        <button class="btn btn-on-navy" data-open-chat>💬 Hablar con el asistente</button>
+        <a class="btn btn-outline" href="https://ig.me/m/lic.silpitucla.kine" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+    <div class="info-list">
+      <div class="info-row"><span class="k">Ubicación</span><span class="v" data-cfg="direccion">Plottier · Neuquén</span></div>
+      <div class="info-row"><span class="k">Turnos</span><span class="v">Por el asistente virtual, WhatsApp o Instagram</span></div>
+      <div class="info-row"><span class="k">Horarios</span><span class="v" data-cfg="horarios">Lunes a Viernes · 9 a 19 hs</span></div>
+      <div class="info-row"><span class="k">Obras sociales</span><span class="v" data-cfg="obras">Consultá por tu cobertura</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="/assets/logo.png" alt="" width="44" height="44">Lic. Camila Silpitucla</div>
+        <p style="margin-top:12px;max-width:34ch;font-size:.9rem">Kinesiología y fisioterapia en Plottier, Neuquén. Movimiento sin dolor, con un enfoque personalizado.</p>
+      </div>
+      <div class="socials" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/lic.silpitucla.kine" target="_blank" rel="noopener" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="y"></span> Lic. Camila Silpitucla · Kinesiología y Fisioterapia · Plottier, Neuquén.</span>
+      <span><a href="/admin/" rel="nofollow">Acceso administración</a> · Hecho por <a href="#" rel="noopener">Patagon.ia</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('y').textContent=new Date().getFullYear();
+  const links=[...document.querySelectorAll('.nav-links a')];
+  const map=links.map(a=>({a,sec:document.querySelector(a.getAttribute('href'))})).filter(x=>x.sec);
+  const obs=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));
+      const m=map.find(x=>x.sec===e.target); if(m)m.a.classList.add('active');}});
+  },{rootMargin:'-45% 0px -50% 0px'});
+  map.forEach(x=>obs.observe(x.sec));
+</script>
+<script src="/assets/chat.js" defer></script>
+</body>
+</html>

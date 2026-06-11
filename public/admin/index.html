@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administración · Lic. Camila Silpitucla</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/assets/logo.png">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div class="login-screen" id="login-screen">
+  <form class="login-card" id="login-form">
+    <img class="logo" src="/assets/logo.png" alt="">
+    <h1>Panel de administración</h1>
+    <p>Clínica · Lic. Camila Silpitucla</p>
+    <div class="login-error" id="login-error"></div>
+    <div class="field"><label for="login-email">Email</label><input id="login-email" type="email" required autocomplete="username"></div>
+    <div class="field"><label for="login-pass">Contraseña</label><input id="login-pass" type="password" required autocomplete="current-password"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" type="submit">Ingresar</button>
+  </form>
+</div>
+
+<!-- ================= APP ================= -->
+<div class="app" id="app">
+  <aside class="sidebar">
+    <div class="brand"><img src="/assets/logo.png" alt="">Panel Clínica</div>
+    <nav id="nav">
+      <button data-view="resumen" class="active"><span class="ico">📊</span><span class="txt">Resumen</span></button>
+      <button data-view="conversaciones"><span class="ico">💬</span><span class="txt">Conversaciones</span></button>
+      <button data-view="turnos"><span class="ico">📅</span><span class="txt">Turnos</span></button>
+      <button data-view="faqs"><span class="ico">🧠</span><span class="txt">Respuestas del bot</span></button>
+      <button data-view="config"><span class="ico">⚙️</span><span class="txt">Configuración</span></button>
+      <button data-view="probar"><span class="ico">🤖</span><span class="txt">Probar el bot</span></button>
+    </nav>
+    <div class="spacer"></div>
+    <nav><button id="logout"><span class="ico">↩</span><span class="txt out">Cerrar sesión</span></button></nav>
+  </aside>
+
+  <main class="content">
+
+    <!-- ===== Resumen ===== -->
+    <section class="view on" id="view-resumen">
+      <div class="page-head"><div><h1>Resumen</h1><p>Actividad del asistente virtual</p></div></div>
+      <div class="grid c4" id="kpis"></div>
+      <div class="grid c2" style="margin-top:16px">
+        <div class="cardbox">
+          <h3 style="font-size:1rem;margin-bottom:10px">Mensajes por día (últimas 2 semanas)</h3>
+          <div class="chart" id="chart"></div>
+          <div class="chart-x" id="chart-x"></div>
+        </div>
+        <div class="cardbox">
+          <h3 style="font-size:1rem;margin-bottom:10px">Temas más consultados</h3>
+          <ul class="toplist" id="toplist"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Conversaciones ===== -->
+    <section class="view" id="view-conversaciones">
+      <div class="page-head"><div><h1>Conversaciones</h1><p>Chats del bot con pacientes · en vivo</p></div></div>
+      <div class="convs">
+        <div class="conv-list" id="conv-list"></div>
+        <div class="conv-detail" id="conv-detail">
+          <div class="empty">Elegí una conversación para ver los mensajes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Turnos ===== -->
+    <section class="view" id="view-turnos">
+      <div class="page-head">
+        <div><h1>Turnos</h1><p>Pedidos que el bot fue agendando</p></div>
+        <select id="turnos-filter" style="width:auto">
+          <option value="">Todos</option>
+          <option value="pendiente">Pendientes</option>
+          <option value="confirmado">Confirmados</option>
+          <option value="atendido">Atendidos</option>
+          <option value="cancelado">Cancelados</option>
+        </select>
+      </div>
+      <div class="cardbox" style="padding:0;overflow-x:auto">
+        <table>
+          <thead><tr><th>Paciente</th><th>Motivo</th><th>Preferencia</th><th>Fecha asignada</th><th>Estado</th><th>Notas</th></tr></thead>
+          <tbody id="turnos-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== FAQs ===== -->
+    <section class="view" id="view-faqs">
+      <div class="page-head">
+        <div><h1>Respuestas del bot</h1><p>Lo que el asistente sabe contestar. Los cambios impactan al instante.</p></div>
+        <button class="btn btn-primary" id="faq-new">+ Nueva respuesta</button>
+      </div>
+      <div id="faq-list"></div>
+    </section>
+
+    <!-- ===== Configuración ===== -->
+    <section class="view" id="view-config">
+      <div class="page-head"><div><h1>Configuración</h1><p>Información institucional y comportamiento del bot</p></div></div>
+      <div class="grid c2">
+        <div class="cardbox">
+          <h3 style="margin-bottom:16px">🏥 Información institucional</h3>
+          <div class="field"><label>Profesional</label><input id="cfg-profesional"></div>
+          <div class="field"><label>Matrícula</label><input id="cfg-matricula"></div>
+          <div class="field"><label>Dirección del consultorio</label><input id="cfg-direccion"></div>
+          <div class="field"><label>Horarios de atención</label><input id="cfg-horarios"></div>
+          <div class="field"><label>WhatsApp (con código de país, ej: 5492995551234)</label><input id="cfg-telefono"></div>
+          <div class="field"><label>Especialidades (una por línea)</label><textarea id="cfg-especialidades"></textarea></div>
+          <div class="field"><label>Obras sociales / coberturas (una por línea)</label><textarea id="cfg-obras"></textarea></div>
+        </div>
+        <div class="cardbox">
+          <h3 style="margin-bottom:16px">🤖 Comportamiento del bot</h3>
+          <div class="field" style="display:flex;align-items:center;gap:12px">
+            <label class="switch" style="margin:0"><input type="checkbox" id="cfg-bot-activo"><i></i></label>
+            <span style="font-size:.9rem;font-weight:600">Bot activo (responde automáticamente)</span>
+          </div>
+          <div class="field"><label>Nombre del asistente</label><input id="cfg-bot-nombre"></div>
+          <div class="field"><label>Tono de voz</label>
+            <select id="cfg-bot-tono">
+              <option value="empatico">Empático y cercano</option>
+              <option value="formal">Formal</option>
+              <option value="profesional">Profesional</option>
+            </select>
+          </div>
+          <div class="field"><label>Mensaje de bienvenida</label><textarea id="cfg-bot-bienvenida"></textarea></div>
+          <div class="field"><label>Mensaje cuando no entiende</label><textarea id="cfg-bot-noentiendo"></textarea></div>
+          <div class="field"><label>Mensaje al derivar a Camila</label><textarea id="cfg-bot-derivacion"></textarea></div>
+          <h3 style="margin:20px 0 12px">📅 Flujo de turnos</h3>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Preguntas que hace el bot, en orden. Usá {nombre}, {motivo}, {preferencia} para reutilizar respuestas.</p>
+          <div class="field"><label>1 · Pregunta por el nombre</label><textarea id="cfg-flujo-0"></textarea></div>
+          <div class="field"><label>2 · Pregunta por el motivo</label><textarea id="cfg-flujo-1"></textarea></div>
+          <div class="field"><label>3 · Pregunta por la preferencia horaria</label><textarea id="cfg-flujo-2"></textarea></div>
+          <div class="field"><label>Mensaje de confirmación del turno</label><textarea id="cfg-flujo-conf"></textarea></div>
+        </div>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:10px">
+        <button class="btn btn-primary" id="cfg-save">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ===== Probar el bot ===== -->
+    <section class="view" id="view-probar">
+      <div class="page-head"><div><h1>Probar el bot</h1><p>Exactamente lo que ve el paciente en WhatsApp. Editá una respuesta y probala acá.</p></div></div>
+      <div class="note">💡 Tip para la demo: cambiá el mensaje de bienvenida en <b>Configuración</b>, guardá, y arrancá una conversación nueva acá. El cambio impacta al instante.</div>
+      <div class="sim">
+        <div class="sim-head">
+          <img src="/assets/logo.png" alt="">
+          <div><b id="sim-name">Asistente</b><span>● en línea</span></div>
+          <button class="btn btn-sm" style="margin-left:auto;background:rgba(255,255,255,.15);color:#fff" id="sim-reset">↺ Reiniciar</button>
+        </div>
+        <div class="sim-msgs" id="sim-msgs"></div>
+        <div class="sim-foot">
+          <input id="sim-in" placeholder="Escribí como paciente…" maxlength="500">
+          <button id="sim-send">➤</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/admin/config.js"></script>
+<script type="module" src="/admin/app.js"></script>
+</body>
+</html>
