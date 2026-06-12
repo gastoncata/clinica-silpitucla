@@ -49,6 +49,7 @@ async function enter() {
   $('#login-screen').style.display = 'none';
   $('#app').classList.add('on');
   loadResumen();
+  updatePendBadge();
   subscribeRealtime();
 }
 
@@ -56,7 +57,7 @@ const { data: { session } } = await sb.auth.getSession();
 if (session) enter();
 
 // ---------------- Navegación ----------------
-const loaders = { resumen: loadResumen, conversaciones: loadConvs, turnos: loadTurnos, faqs: loadFaqs, config: loadConfig, probar: initSim };
+const loaders = { resumen: loadResumen, pendientes: loadPendientes, conversaciones: loadConvs, turnos: loadTurnos, faqs: loadFaqs, config: loadConfig, probar: initSim };
 $('#nav').addEventListener('click', (e) => {
   const btn = e.target.closest('button[data-view]');
   if (!btn) return;
@@ -105,6 +106,123 @@ async function loadResumen() {
       .map((i) => `<li><span>${esc(labels[i.intent] || '💬 ' + i.intent.replaceAll('_', ' '))}</span><span class="n">${i.total}</span></li>`)
       .join('') || '<li>Sin datos todavía</li>';
 }
+
+// ---------------- Pendientes ----------------
+// Conversaciones cuyo último mensaje es del paciente (nadie respondió aún)
+// + turnos en estado pendiente, con acciones rápidas.
+async function getPendingData() {
+  const { data: convs } = await sb.from('conversations').select('*').eq('estado', 'abierta').order('last_message_at', { ascending: false }).limit(50);
+  const ids = (convs || []).map((c) => c.id);
+  const byConv = {};
+  if (ids.length) {
+    const { data: msgs } = await sb.from('messages').select('*').in('conversation_id', ids).order('created_at', { ascending: false }).limit(400);
+    for (const m of msgs || []) (byConv[m.conversation_id] ||= []).push(m);
+  }
+  const waiting = (convs || []).filter((c) => byConv[c.id]?.[0]?.rol === 'paciente');
+  const { data: turnos } = await sb.from('appointments').select('*').eq('estado', 'pendiente').order('created_at', { ascending: false });
+  return { waiting, byConv, turnos: turnos || [] };
+}
+
+async function updatePendBadge() {
+  const { waiting, turnos } = await getPendingData();
+  const n = waiting.length + turnos.length;
+  const b = $('#pend-badge');
+  b.hidden = n === 0;
+  b.textContent = n;
+}
+
+async function loadPendientes() {
+  const { waiting, byConv, turnos } = await getPendingData();
+  const b = $('#pend-badge');
+  b.hidden = waiting.length + turnos.length === 0;
+  b.textContent = waiting.length + turnos.length;
+
+  $('#pend-convs').innerHTML =
+    waiting
+      .map((c) => {
+        const ult = (byConv[c.id] || []).slice(0, 3).reverse();
+        return `
+      <div class="pend-card" data-id="${c.id}">
+        <div class="r1">
+          <span class="who">${esc(c.nombre || 'Sin nombre')}</span>
+          <span class="badge ${c.canal}">${c.canal === 'whatsapp' ? 'WhatsApp' : 'Web'}</span>
+          <span class="badge ${c.modo}">${c.modo === 'bot' ? '🤖 Bot' : '🙋 Vos'}</span>
+          <span class="tel">${esc(c.telefono)}</span>
+          <span class="when">${fmtTime(c.last_message_at)}</span>
+        </div>
+        <div class="pend-msgs">
+          ${ult.map((m) => `<div class="msg ${m.rol}">${md(m.texto)}</div>`).join('')}
+        </div>
+        <div class="pend-reply">
+          <input class="p-in" placeholder="Responder como Camila…" maxlength="1000">
+          <button class="btn btn-primary btn-sm p-send">Responder</button>
+          ${c.modo === 'humano' ? '<button class="btn btn-ghost btn-sm p-bot">Devolver al bot</button>' : ''}
+          <button class="btn btn-ghost btn-sm p-close">Marcar resuelto</button>
+        </div>
+      </div>`;
+      })
+      .join('') || '<div class="pend-empty">🎉 Nada esperando respuesta. El bot tiene todo bajo control.</div>';
+
+  $('#pend-turnos').innerHTML =
+    turnos
+      .map(
+        (t) => `
+      <div class="pend-turno" data-id="${t.id}">
+        <div class="info">
+          <b>${esc(t.nombre)}</b> · <span class="d">${esc(t.telefono)}</span>
+          <div class="d">${esc(t.motivo || 'Sin motivo')} — prefiere: ${esc(t.preferencia || 'sin preferencia')}</div>
+        </div>
+        <button class="btn btn-ok btn-sm t-ok">✓ Confirmar</button>
+        <button class="btn btn-danger btn-sm t-no">✕ Cancelar</button>
+      </div>`
+      )
+      .join('') || '<div class="pend-empty">Sin turnos por confirmar.</div>';
+}
+
+$('#pend-convs').addEventListener('click', async (e) => {
+  const card = e.target.closest('.pend-card');
+  if (!card) return;
+  const id = card.dataset.id;
+  if (e.target.classList.contains('p-send')) {
+    const v = card.querySelector('.p-in').value.trim();
+    if (!v) { toast('Escribí la respuesta primero'); return; }
+    await sb.from('messages').insert({ conversation_id: id, rol: 'humano', texto: v });
+    await sb.from('conversations').update({ modo: 'humano', last_message_at: new Date().toISOString() }).eq('id', id);
+    toast('Respuesta enviada');
+    loadPendientes();
+  }
+  if (e.target.classList.contains('p-bot')) {
+    await sb.from('conversations').update({ modo: 'bot' }).eq('id', id);
+    toast('El bot vuelve a responder esta conversación');
+    loadPendientes();
+  }
+  if (e.target.classList.contains('p-close')) {
+    await sb.from('conversations').update({ estado: 'cerrada' }).eq('id', id);
+    toast('Conversación marcada como resuelta');
+    loadPendientes();
+  }
+});
+
+$('#pend-convs').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.target.classList.contains('p-in')) {
+    e.target.closest('.pend-card').querySelector('.p-send').click();
+  }
+});
+
+$('#pend-turnos').addEventListener('click', async (e) => {
+  const row = e.target.closest('.pend-turno');
+  if (!row) return;
+  if (e.target.classList.contains('t-ok')) {
+    await sb.from('appointments').update({ estado: 'confirmado' }).eq('id', row.dataset.id);
+    toast('Turno confirmado');
+    loadPendientes();
+  }
+  if (e.target.classList.contains('t-no')) {
+    await sb.from('appointments').update({ estado: 'cancelado' }).eq('id', row.dataset.id);
+    toast('Turno cancelado');
+    loadPendientes();
+  }
+});
 
 // ---------------- Conversaciones ----------------
 let selConv = null;
@@ -186,9 +304,13 @@ function subscribeRealtime() {
         loadConvs();
         if (selConv && payload.new.conversation_id === selConv) openConv(selConv);
       }
+      if ($('#view-pendientes').classList.contains('on')) loadPendientes();
+      else updatePendBadge();
     })
     .on('postgres_changes', { event: '*', schema: 'public', table: 'appointments' }, () => {
       if ($('#view-turnos').classList.contains('on')) loadTurnos();
+      if ($('#view-pendientes').classList.contains('on')) loadPendientes();
+      else updatePendBadge();
     })
     .subscribe();
 }

@@ -14,3 +14,6 @@ img/
 # Imágenes temporales excluidas previamente
 public/assets/img0.png
 public/assets/img2.jpg
+
+# Artefactos de playwright (VS Code)
+.playwright-mcp/

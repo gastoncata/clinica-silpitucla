@@ -32,6 +32,7 @@
     <div class="brand"><img src="/assets/logo.png" alt="">Panel Clínica</div>
     <nav id="nav">
       <button data-view="resumen" class="active"><span class="ico">📊</span><span class="txt">Resumen</span></button>
+      <button data-view="pendientes"><span class="ico">📥</span><span class="txt">Pendientes</span><span class="navbadge" id="pend-badge" hidden></span></button>
       <button data-view="conversaciones"><span class="ico">💬</span><span class="txt">Conversaciones</span></button>
       <button data-view="turnos"><span class="ico">📅</span><span class="txt">Turnos</span></button>
       <button data-view="faqs"><span class="ico">🧠</span><span class="txt">Respuestas del bot</span></button>
@@ -59,6 +60,15 @@
           <ul class="toplist" id="toplist"></ul>
         </div>
       </div>
+    </section>
+
+    <!-- ===== Pendientes ===== -->
+    <section class="view" id="view-pendientes">
+      <div class="page-head"><div><h1>Pendientes</h1><p>Lo que necesita tu atención: mensajes sin responder y turnos por confirmar</p></div></div>
+      <h3 style="margin-bottom:12px">💬 Mensajes esperando respuesta</h3>
+      <div id="pend-convs"></div>
+      <h3 style="margin:26px 0 12px">📅 Turnos por confirmar</h3>
+      <div id="pend-turnos"></div>
     </section>
 
     <!-- ===== Conversaciones ===== -->

@@ -149,6 +149,25 @@ td select,td input{padding:7px 10px;font-size:.86rem}
 .sim-foot input{flex:1;border:0;border-radius:999px;padding:10px 16px}
 .sim-foot button{width:42px;height:42px;border-radius:50%;border:0;background:#075E54;color:#fff}
 
+/* pendientes */
+.navbadge{margin-left:auto;background:var(--bad);color:#fff;font-size:.68rem;font-weight:700;min-width:20px;height:20px;border-radius:999px;display:inline-grid;place-items:center;padding:0 6px}
+.pend-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px}
+.pend-card .r1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.pend-card .who{font-family:var(--display);font-weight:700;color:var(--navy)}
+.pend-card .tel{font-size:.8rem;color:var(--muted)}
+.pend-card .when{margin-left:auto;font-size:.75rem;color:var(--muted)}
+.pend-msgs{background:#EFE9E2;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.pend-msgs .msg{max-width:85%;font-size:.88rem;padding:6px 10px}
+.pend-reply{display:flex;gap:8px;flex-wrap:wrap}
+.pend-reply input{flex:1;min-width:200px}
+.pend-empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:22px;text-align:center;color:var(--muted);font-size:.92rem}
+.pend-turno{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;flex-wrap:wrap}
+.pend-turno .info{flex:1;min-width:220px}
+.pend-turno .info b{font-family:var(--display);color:var(--navy)}
+.pend-turno .info .d{font-size:.85rem;color:var(--muted)}
+.btn-ok{background:var(--ok);color:#fff}
+.btn-ok:hover{background:#17854f}
+
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:#fff;
   padding:12px 22px;border-radius:999px;font-size:.9rem;font-family:var(--display);transition:transform .3s ease;z-index:99;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
 .toast.on{transform:translateX(-50%) translateY(0)}
